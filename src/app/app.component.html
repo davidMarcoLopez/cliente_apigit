@@ -1,0 +1,38 @@
+
+<div class="container">
+  <div class="input-group mb-3 mt-5">
+    <input type="text" class="form-control" placeholder="Url repositorio git" aria-label="Url repositorio git" aria-describedby="button-addon2" [(ngModel)]="urlGit">
+    
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="getIssuesFromUrl()">Obtener issues</button>
+    </div>
+  </div>
+
+  <mat-paginator *ngIf="issues.length" [length]="issues.length"
+              [pageSize]="page_size"
+              [pageSizeOptions]="pageSizeOptions"
+              (page)="handlePage($event)">
+  </mat-paginator>
+
+  <!--muestra estado y titulo de cada issue -->
+  <table *ngIf="issues.length" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Estado</th>
+          <th>Título</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let issue of issues | paginate:page_size:page_number">
+            <td>{{issue.state}}</td><td>{{issue.title}}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+</div>
+
+
+<router-outlet></router-outlet>
+<style>
+  
+</style>
